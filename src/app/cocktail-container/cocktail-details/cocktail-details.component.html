@@ -1,0 +1,18 @@
+<div *ngIf="cocktail">
+  <div class="row">
+    <div class="col-4">
+      <img class="img-fluid" style="max-height: 150px;" [src]="cocktail.img" [alt]="cocktail.name">
+    </div>
+    <h3 class="col-8">{{cocktail.name}}</h3>
+  </div>
+  <hr>
+  <div class="row">
+    <p class="col-12" [textContent]="cocktail.description"></p>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-success" (click)="editCocktail(cocktail)">Editer le cocktail</button>
+    </div>
+  </div>
+</div>

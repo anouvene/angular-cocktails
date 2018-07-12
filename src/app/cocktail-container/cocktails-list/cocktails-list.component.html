@@ -1,0 +1,17 @@
+<div class="row" id="cocktails-list">
+  <div class="list-group col-12" style="padding-right:0; margin-bottom: 10px">
+    <a *ngFor="let cocktail of cocktails let i = index" href="#"
+        class="list-group-item list-group-action"
+        (click)="changeCocktail(i)"
+        [appActive]="i === activeCocktail">
+      {{cocktail.name}}
+      <span class="close ml-auto" style="font-size:48px;color:red" (click)="deleteCocktail(i)">&times;</span>
+    </a>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <button class="btn btn-success col-12" (click)="addCocktail()">
+    Ajouter un cocktail
+  </button>
+</div>

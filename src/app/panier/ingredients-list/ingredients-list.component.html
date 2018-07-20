@@ -1,0 +1,7 @@
+<h3>Ingredients : </h3>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let ingredient of ingredients">
+    {{ ingredient.name }}
+    <span class="badge badge-secondary badge-pill">{{ ingredient.quantity }}</span>
+  </li>
+</ul>

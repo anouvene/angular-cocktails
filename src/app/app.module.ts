@@ -15,6 +15,10 @@ import { ColorDirective } from './shared/directives/color.directive';
 import { NoWhitespaceDirective } from './shared/directives/no-whitespace.directive';
 import { ActiveDirective } from './shared/directives/active.directive';
 
+import { APP_ROUTING } from './app.routing';
+import { IngredientsListComponent } from './panier/ingredients-list/ingredients-list.component';
+import { HomeComponent } from './home/home.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,12 +30,15 @@ import { ActiveDirective } from './shared/directives/active.directive';
     NoWhitespaceDirective,
     AddComponent,
     PanierComponent,
-    ActiveDirective
+    ActiveDirective,
+    IngredientsListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    APP_ROUTING
   ],
   providers: [PanierService],
   bootstrap: [AppComponent]

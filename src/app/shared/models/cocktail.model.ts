@@ -5,5 +5,5 @@ export class Cocktail {
     public name: string,
     public img: string,
     public description: string,
-    public ingredients?: Ingredient[]) { }
+    public ingredients: Ingredient[]) { }
 }

@@ -2,16 +2,17 @@
   <div class="list-group col-12" style="padding-right:0; margin-bottom: 10px">
     <a *ngFor="let cocktail of cocktails let i = index"
         class="list-group-item list-group-action"
-        (click)="changeCocktail(i)"
-        [appActive]="i === activeCocktail">
+        [routerLink]="i"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
       {{cocktail.name}}
-      <span class="close ml-auto" style="font-size:48px;color:red" (click)="deleteCocktail(i)">&times;</span>
+      <span class="close ml-auto" style="font-size:48px;color:red" (click)="deleteCocktail(i, $event);">&times;</span>
     </a>
   </div>
 </div>
 <hr>
 <div class="row">
-  <button class="btn btn-success col-12" (click)="addCocktail()">
+  <button class="btn btn-success col-12" routerLink="new">
     Ajouter un cocktail
   </button>
 </div>

@@ -23,4 +23,5 @@ export class PanierService {
       this.panier.next(ingredients);
     }
   }
+
 }

@@ -21,7 +21,7 @@
   </div>
   <hr>
   <div class="row margin-cancel">
-    <button type="button" class="btn btn-success" (click)="editCocktail(cocktail)">Editer le cocktail</button>
+    <button type="button" class="btn btn-success" [routerLink]="getUrl()">Editer le cocktail</button>
     <button type="button" class="btn btn-secondary ml-auto" (click)="addPanier(cocktail.ingredients)">Ajouter au panier</button>
   </div>
 </div>

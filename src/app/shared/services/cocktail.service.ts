@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {Cocktail} from '../models/cocktail.model';
+import { Cocktail } from '../models/cocktail.model';
 
 @Injectable()
 export class CocktailService {
@@ -81,36 +81,22 @@ export class CocktailService {
    * La méthode next permet de passer une nouvelle valeur au BehaviorSubject
    * @param {number} index
    */
-  selectCocktail(index: number): void {
-    this.cocktail.next(this.cocktails.value[index]);
-  }
-
-  addCocktail() {
-    const cocktails = {
-      name: 'Gin tonic',
-      img: 'http://recettes.nicolas.com/wp-content/uploads/2016/04/341-638x483.jpg',
-      description: 'Le gin tonic est un cocktail alcoolisé à base de gin et d\'eau tonique, parfois accompagné avec ' +
-      'une tranche de citron ou de citron vert, et servi avec de la glace.',
-      isSelected: false
-    };
-
-    // this.cocktails.push(cocktails);
+  getCocktail(index: number): Cocktail {
+    return this.cocktails.value[index];
   }
 
   /**
-   * Get current cocktail on click event
+   * Add a cocktail to the cocktails array
+   * or Update cocktail at index position
    * @param {Cocktail} cocktail
    */
-  changeCocktail(cocktail: Cocktail): void {
-    // this.cocktailSelected =  cocktail;
-  }
-
-  /**
-   * Update cocktail
-   * @param $event
-   */
-  updateCocktail($event) {
-    console.log($event);
+  addCocktail(cocktail: Cocktail, index?: number) {
+    const cocktails = this.cocktails.value;
+    if (index === undefined) { // Add new cocktail
+      cocktails.push(cocktail);
+    } else { // Update cocktail at index position
+      cocktails.splice(index, 1, cocktail);
+    }
   }
 
   /**
@@ -119,7 +105,7 @@ export class CocktailService {
    */
   deleteCocktail(index: number) {
     let allCocktails = [];
-    this.cocktails.subscribe((cocktails: Cocktail[]) => allCocktails = cocktails)
+    this.cocktails.subscribe((cocktails: Cocktail[]) => allCocktails = cocktails);
     allCocktails.splice(index, 1);
 
     if (allCocktails.length > 0) {
@@ -127,6 +113,7 @@ export class CocktailService {
     } else {
       this.cocktail.complete();
     }
+
   }
 
 }

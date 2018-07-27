@@ -1,3 +1,13 @@
-.margin-cancel { margin: 0}
-.container-fluid {padding: 0 10px}
-  .container-fluid > .row { margin-left: 0; margin-right: 0}
+.margin-cancel { margin: 0 }
+.margin-bottom-col9 .col-9 { margin-bottom: 1em }
+.container-fluid {padding: 0 10px }
+  .container-fluid > .row { margin-left: 0; margin-right: 0 }
+
+.navbar-brand {font-size: 2rem }
+.badge { display: inline-block; line-height: inherit; float: right }
+.margin-cancel .btn-secondary.ml-auto { margin: 5px 0!important; }
+
+
+@media screen and (min-width: 597px){
+  .margin-cancel .btn-secondary.ml-auto { margin: inherit!important;; margin-left: auto!important}
+}

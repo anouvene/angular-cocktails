@@ -4,7 +4,7 @@ import { Cocktail } from '../../shared/models/cocktail.model';
 import { CocktailService } from '../../shared/services/cocktail.service';
 import { Ingredient } from '../../shared/models/ingredient.model';
 import { PanierService } from '../../shared/services/panier.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
   selector: 'app-cocktail-details',
@@ -13,24 +13,30 @@ import { Router } from '@angular/router';
 })
 export class CocktailDetailsComponent implements OnInit {
 
-  public cocktail: Cocktail;
-  public notofication: string;
+  public cocktail: any;
 
-  constructor(private cocktailService: CocktailService, private panierService: PanierService, private router: Router) { }
+  public index: number = 0;
+
+  constructor(
+    private cocktailService: CocktailService,
+    private panierService: PanierService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.cocktailService.cocktail.subscribe( {
-    next: (cocktail) =>  this.cocktail = cocktail,
-    complete: () => {
-      this.cocktail = null;
-      this.notofication = 'Aucun cocktail disponible pour le moment';
-      console.log(this.notofication);
-    }
-  });
+    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+      if (params.get('index')) {
+        this.index = +params.get('index');
+        this.cocktail = this.cocktailService.getCocktail(this.index);
+      } else {
+        this.cocktail = this.cocktailService.getCocktail(this.index);
+        this.router.navigate(['cocktails', this.index]);
+      }
+    });
   }
 
-  editCocktail(cocktail: Cocktail) {
-    console.log(this.cocktail);
+  getUrl() {
+    return ['/cocktails', this.index, 'edit'];
   }
 
   /**

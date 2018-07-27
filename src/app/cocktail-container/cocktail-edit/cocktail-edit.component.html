@@ -1,0 +1,75 @@
+<div class="row">
+  <form [formGroup]="cocktailForm" (submit)="createCocktail()" class="col-12 margin-bottom-col9">
+    <div class="row form-group justify-content-end mx-auto">
+      <h4 class="col-12 mx-auto">Editer un cocktail</h4>
+
+      <!--Name-->
+      <label for="name" class="col-3 col-form-label">Name</label>
+      <div class="col-9">
+        <input type="text" id="name" formControlName="name" class="form-control">
+        <div
+          class="text-warning"
+          *ngIf="cocktailForm.get('name').dirty && cocktailForm.get('name').hasError('required')">
+          Name is required
+        </div>
+      </div>
+
+      <!--Image-->
+      <label for="image" class="col-3 col-form-label">Image URL ?</label>
+      <div class="col-9">
+        <input type="text" id="image" formControlName="img" class="form-control">
+        <div
+          class="text-warning"
+          *ngIf="cocktailForm.get('img').dirty && cocktailForm.get('img').hasError('required')">
+          Image URL is required
+        </div>
+      </div>
+
+      <!--Description-->
+      <label for="desc" class="col-3 col-form-label">Description</label>
+      <div class="col-9">
+        <textarea id="desc" formControlName="description" class="form-control"></textarea>
+      </div>
+
+      <!--Ingredients-->
+      <div formArrayName="ingredients" class="col-12">
+
+        <!--Add ingredient button-->
+        <div class="row form-group">
+          <label class="col-3 col-form-label">Ingredients ?</label>
+          <div class="col-sm-9"><button type="button" (click)='addIngredient()' class='btn btn-success'>Add ingredient</button></div>
+        </div>
+
+        <!--Ingredient-->
+        <div class="row form-group" *ngFor="let ingredientForm of cocktailForm.get('ingredients').controls; let i = index" [formGroup]="ingredientForm">
+          <label class="col-3 col-form-label">Ingredient {{ i + 1 }}</label>
+          <div class="col-6">
+            <input type="text" class="form-control" formControlName="name" placeholder="Name">
+            <div class="text-warning" *ngIf="ingredientForm.get('name').hasError('required')
+            && ingredientForm.get('name').dirty">Ingredient is required !</div>
+            <div class="text-warning" *ngIf="ingredientForm.get('name').dirty
+            && ingredientForm.get('name').hasError('minlength')">Min length with 4 characters !</div>
+          </div>
+          <div class="col-2">
+            <input type="number" class="form-control" formControlName="quantity" placeholder="Qty">
+            <div class="text-warning" *ngIf="ingredientForm.get('quantity').dirty && ingredientForm.get('quantity').hasError('required')">Quantity is required</div>
+            <div class="text-warning" *ngIf="ingredientForm.get('quantity').hasError('min')">Quantity must be greater than 0 !</div>
+          </div>
+          <div class="col-1 text-left padding-reset"><span class="fa fa-times" aria-hidden="true" (click)="deleteIngredient(i)"></span></div>
+        </div>
+
+      </div>
+
+      <!--Create cocktail button-->
+        <div class="col-sm-9">
+          <input type="submit" class="btn btn-success" [disabled]="cocktailForm.invalid" *ngIf="cocktailId; else new" value="Modifier">
+          <ng-template #new>
+            <input type="submit" class="btn btn-success" [disabled]="cocktailForm.invalid" value="Ajouter">
+          </ng-template>
+
+          <button type="button" class="btn btn-light mr-auto" [routerLink]="['../']">Annuler</button>
+        </div>
+
+    </div>
+  </form>
+</div>

@@ -23,14 +23,7 @@ export class CocktailEditComponent implements OnInit {
    * @param {CocktailService} cocktailService Cocktail service
    * @param {ActivatedRoute} route Routind service
    */
-  constructor(private fb: FormBuilder, private cocktailService: CocktailService, private route: ActivatedRoute ) {
-    /*this.cocktailForm = fb.group({
-      name: ['', [Validators.required]],
-      img: ['', [Validators.required]],
-      description: [''],
-      ingredients: fb.array([])
-    });*/
-  }
+  constructor(private fb: FormBuilder, private cocktailService: CocktailService, private route: ActivatedRoute ) { }
 
   /**
    * To retrieve a cocktail by id and by getCoctail() method from CocktailService

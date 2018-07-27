@@ -18,7 +18,7 @@ export class CocktailEditComponent implements OnInit {
   public cocktail: Cocktail;
 
   /**
-   * To init the coktail form
+   * Dependency injection services to the constructor
    * @param {FormBuilder} fb FormBuilder service
    * @param {CocktailService} cocktailService Cocktail service
    * @param {ActivatedRoute} route Routind service

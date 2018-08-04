@@ -27,22 +27,22 @@ export class CocktailEditComponent implements OnInit {
   constructor(private fb: FormBuilder, private cocktailService: CocktailService, private route: ActivatedRoute ) { }
 
   /**
-   * To retrieve a cocktail by id and by getCoctail() method from CocktailService
+   * To retrieve a cocktail by id and by getCocktail() method from CocktailService
    */
   ngOnInit() {
     this.route.paramMap.subscribe( (params: ParamMap) => {
       if (params.get('index')) {
         this.edit = true;
         this.cocktailIndex = +params.get('index');
-        this.cocktail = this.cocktailService.getCocktail(this.cocktailIndex);
-
-        if (this.cocktail) {
-          this.initForm(this.cocktail);
-        }
+        this.cocktailService.getCocktail(this.cocktailIndex).subscribe((cocktail: Cocktail) => {
+          this.cocktail = cocktail;
+          if (this.cocktail) {
+            this.initForm(this.cocktail);
+          }
+        });
       } else {
         this.initForm();
       }
-
     });
   }
 

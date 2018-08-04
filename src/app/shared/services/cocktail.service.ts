@@ -46,6 +46,7 @@ export class CocktailService {
   addCocktail(cocktail: Cocktail) {
     const cocktails = this.cocktails.value;
     cocktails.push(cocktail);
+    this.saveCocktail();
   }
 
   /**
@@ -57,9 +58,19 @@ export class CocktailService {
     const index = cocktails.findIndex(c => c.name === editCocktail.name);
     cocktails[index] = editCocktail; // changement de valeur
     this.cocktails.next(cocktails); // Mise à jour le tableau de cocktails pour BehaviorSubject
-
     // Update cocktail at index position
     // cocktails.splice(index, 1, editCocktail);
+
+    this.saveCocktail();
+  }
+
+  /**
+   * Save cocktail in firebase
+   */
+  saveCocktail(): void {
+    this.http.put('https://cocktails-b42f0.firebaseio.com/cocktails.json', this.cocktails.value).subscribe(cocktails => {
+      this.cocktails.next(cocktails);
+    });
   }
 
   /**

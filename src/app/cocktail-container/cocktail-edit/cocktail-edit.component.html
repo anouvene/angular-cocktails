@@ -1,5 +1,5 @@
 <div class="row">
-  <form [formGroup]="cocktailForm" (submit)="createCocktail()" class="col-12 margin-bottom-col9">
+  <form [formGroup]="cocktailForm" (submit)="saveCocktail()" class="col-12 margin-bottom-col9">
     <div class="row form-group justify-content-end mx-auto">
       <h4 class="col-12 mx-auto">Editer un cocktail</h4>
 
@@ -62,7 +62,7 @@
 
       <!--Create cocktail button-->
         <div class="col-sm-9">
-          <input type="submit" class="btn btn-success" [disabled]="cocktailForm.invalid" *ngIf="cocktailId; else new" value="Modifier">
+          <input type="submit" class="btn btn-success" [disabled]="cocktailForm.invalid" *ngIf="edit; else new" value="Modifier">
           <ng-template #new>
             <input type="submit" class="btn btn-success" [disabled]="cocktailForm.invalid" value="Ajouter">
           </ng-template>

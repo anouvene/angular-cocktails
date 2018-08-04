@@ -14,8 +14,9 @@ export class CocktailEditComponent implements OnInit {
   private cocktailForm: FormGroup;
   private ingredientForm: FormGroup;
 
-  public cocktailId: number;
+  public cocktailIndex: number;
   public cocktail: Cocktail;
+  public edit: boolean = false;
 
   /**
    * Dependency injection services to the constructor
@@ -31,8 +32,9 @@ export class CocktailEditComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe( (params: ParamMap) => {
       if (params.get('index')) {
-        this.cocktailId = +params.get('index');
-        this.cocktail = this.cocktailService.getCocktail(this.cocktailId);
+        this.edit = true;
+        this.cocktailIndex = +params.get('index');
+        this.cocktail = this.cocktailService.getCocktail(this.cocktailIndex);
 
         if (this.cocktail) {
           this.initForm(this.cocktail);
@@ -97,11 +99,15 @@ export class CocktailEditComponent implements OnInit {
   }
 
   /**
-   * Create a cocktail
-   * And call addCocktail() method from CocktailService
+   * Create or edit a cocktail
+   * And call addCocktail() and editCocktail() methods from CocktailService
    */
-  createCocktail(): void {
-    this.cocktailService.addCocktail(this.cocktailForm.value, this.cocktailId);
+  saveCocktail(): void {
+    if (this.edit) {
+      this.cocktailService.editCocktail(this.cocktailForm.value);
+    } else {
+      this.cocktailService.addCocktail(this.cocktailForm.value);
+    }
   }
 
 }

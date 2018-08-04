@@ -4,7 +4,7 @@ import { Cocktail } from '../../shared/models/cocktail.model';
 import { CocktailService } from '../../shared/services/cocktail.service';
 import { Ingredient } from '../../shared/models/ingredient.model';
 import { PanierService } from '../../shared/services/panier.service';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cocktail-details',
@@ -13,9 +13,9 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 })
 export class CocktailDetailsComponent implements OnInit {
 
-  public cocktail: any;
+  public cocktail: Cocktail;
 
-  public index: number = 0;
+  public index: number;
 
   constructor(
     private cocktailService: CocktailService,
@@ -24,14 +24,22 @@ export class CocktailDetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
-      if (params.get('index')) {
-        this.index = +params.get('index');
-        this.cocktail = this.cocktailService.getCocktail(this.index);
+    this.activatedRoute.params.subscribe((params: Params) => {
+      if (params.index) {
+        this.index = params.index;
       } else {
-        this.cocktail = this.cocktailService.getCocktail(this.index);
-        this.router.navigate(['cocktails', this.index]);
+        this.index = 0;
       }
+
+      this.cocktailService.getCocktail(this.index).subscribe((cocktail: Cocktail) => {
+        this.cocktail = cocktail;
+        this.router.navigate(['cocktails', this.index]);
+
+        // Si aucun cocktail
+        if (this.cocktail === undefined) {
+          this.router.navigate(['cocktails', 0]);
+        }
+      });
     });
   }
 

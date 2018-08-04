@@ -1,6 +1,8 @@
 <div class="row" id="cocktails-list">
-  <div class="list-group col-12" style="padding-right:0; margin-bottom: 10px">
-    <a *ngFor="let cocktail of cocktails let i = index"
+  <div class="list-group col-12 list-margin-padding">
+    <input type="text" class="form-control" placeholder="Chercher un cocktail ..." [(ngModel)]="search">
+    <hr>
+    <a *ngFor="let cocktail of cocktails | cocktailsFilter:search; let i = index"
         class="list-group-item list-group-action"
         [routerLink]="i"
         routerLinkActive="active"
